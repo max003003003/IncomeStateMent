@@ -16,8 +16,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Wallet"
-            android:label="Wallet"></activity>
+            android:name=".WalletActivity"
+            android:label="WalletActivity"></activity>
         <activity android:name=".Setting"></activity>
     </application>
 

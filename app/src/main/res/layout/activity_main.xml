@@ -11,7 +11,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/background"
-    tools:context="com.max.incomestatement.MainActivity">
+    tools:context="com.max.incomestatement.MainActivity"
+    tools:showIn="@layout/activity_main"
+   >
 
 
 
@@ -38,150 +40,52 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="changeToWallet">
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_marginLeft="24dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_account_balance_wallet_white_24dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Wallet"
-            android:textColor="@color/font"
-
-            android:textSize="16sp"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="24dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_weight="3"
-            android:gravity="right"
-            android:textSize="16sp"
-            android:textColor="@color/font"
-            android:text="1000.75  ฿ "/>
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/ic_chevron_right_white_24dp"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="changeToWallet">
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_marginLeft="24dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/local_atm_white_48x48"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Wallet"
-            android:textColor="@color/font"
-
-            android:textSize="16sp"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="24dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_weight="3"
-            android:gravity="right"
-            android:textSize="16sp"
-            android:textColor="@color/font"
-            android:text="775.00  ฿ "/>
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/ic_chevron_right_white_24dp"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="changeToWallet">
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_marginLeft="24dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_account_balance_white_24dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bank"
-            android:textColor="@color/font"
-
-            android:textSize="16sp"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="24dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_weight="3"
-            android:gravity="right"
-            android:textSize="16sp"
-            android:textColor="@color/font"
-            android:text="8000.00  ฿ "/>
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/ic_chevron_right_white_24dp"/>
-
-    </LinearLayout>
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:onClick="settings"
-         >
+        android:scrollbars="vertical" />
 
-        <ImageView
-            android:id="@+id/settingimage"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_settings_white_24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-           />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Settings"
-            android:textColor="@color/font"
-            android:textSize="16sp"
-            android:layout_marginLeft="24dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@id/settingimage"
-            android:paddingLeft="16dp"
-            android:paddingBottom="6dp"
-
-            />
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView" />
 
 
-    </RelativeLayout>
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:paddingBottom="@dimen/activity_vertical_margin"-->
+        <!--android:onClick="settings"-->
+         <!--&gt;-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/settingimage"-->
+            <!--android:layout_width="32dp"-->
+            <!--android:layout_height="32dp"-->
+            <!--android:src="@drawable/ic_settings_white_24dp"-->
+            <!--android:layout_marginLeft="24dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+           <!--/>-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Settings"-->
+            <!--android:textColor="@color/font"-->
+            <!--android:textSize="16sp"-->
+            <!--android:layout_marginLeft="24dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignLeft="@id/settingimage"-->
+            <!--android:paddingLeft="16dp"-->
+            <!--android:paddingBottom="6dp"-->
+
+            <!--/>-->
+
+
+    <!--</RelativeLayout>-->
 
 
 </LinearLayout>
