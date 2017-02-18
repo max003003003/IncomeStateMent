@@ -9,11 +9,13 @@ import java.text.DecimalFormat;
 public class Wallet {
     private String name;
     private double balance;
+    private String icon;
 
-    public Wallet(String name, double balance)
+    public Wallet(String name, double balance,String icon)
     {
         this.name = name;
         this.balance=balance;
+        this.icon=icon;
     }
 
     public String getName(){
