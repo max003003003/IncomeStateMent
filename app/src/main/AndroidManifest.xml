@@ -19,7 +19,11 @@
             android:name=".WalletActivity"
             android:label="WalletActivity" />
         <activity android:name=".Setting" />
-        <activity android:name=".FormAddBankActivity"></activity>
+        <activity android:name=".FormAddBankActivity" />
+        <activity android:name=".EditWalletActivity"
+            android:label="Add A Wallet">
+
+        </activity>
     </application>
 
 </manifest>

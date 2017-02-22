@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_wallter_option">
+        <item>@string/wallet_cash</item>
+        <item>@string/wallet_bank</item>
+        <item>@string/wall_piggy</item>
+    </string-array>
+
+
+</resources>
