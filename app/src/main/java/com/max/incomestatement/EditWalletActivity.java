@@ -18,8 +18,8 @@ import android.widget.Toast;
 import com.max.incomestatement.data.WalletContract;
 
 public class EditWalletActivity extends AppCompatActivity {
-   private Spinner spinner;
-   private  EditText name;
+    private  Spinner spinner;
+    private  EditText name;
     private  EditText balance;
     private  ArrayAdapter<CharSequence> adapter;
     private  String itemvalue;
@@ -44,7 +44,14 @@ public class EditWalletActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 itemvalue= adapterView.getItemAtPosition(i).toString() ;
-                
+
+                switch ((int) adapterView.getItemIdAtPosition(i))
+                {
+                    case 0: itemvalue = "ic_account_balance_wallet_white_24dp"; break;
+                    case 1: itemvalue = "ic_account_balance_white_24dp"; break;
+                    case 2: itemvalue = "local_atm_white_48x48"; break;
+                }
+
             }
 
             @Override
@@ -61,17 +68,17 @@ public class EditWalletActivity extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put(WalletContract.WalletEntry.COLUMN_WALLET_NAME, n);
         values.put(WalletContract.WalletEntry.COLUMN_WALLET_BALANCE, b);
-        values.put(WalletContract.WalletEntry.COLUMN_WALLET_ICON,"ic_account_balance_wallet_white_24dp");
+
+        values.put(WalletContract.WalletEntry.COLUMN_WALLET_ICON, itemvalue);
+
         values.put(WalletContract.WalletEntry.COLUMN_WALLET_CURRENCY,"th");
         long newRowID = db.insert(WalletContract.WalletEntry.TABLE_NAME,null,values);
 
         if(newRowID == -1 ){
             Toast.makeText(this,"error",Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this,"Wallet Save"+newRowID, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Wallet Save "+newRowID, Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
 

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ import java.util.List;
 public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder>   {
 
 
-    private List<Wallet>  walletlist;
+    private ArrayList<Wallet>  walletlist;
 
     Context context;
 
@@ -33,8 +34,8 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder
         public ViewHolder(View itemView, Context c) {
             super(itemView);
 
-            name=(TextView) itemView.findViewById(R.id.name);
-            balance= (TextView) itemView.findViewById(R.id.balace);
+            name=(TextView) itemView.findViewById(R.id.namelv);
+            balance= (TextView) itemView.findViewById(R.id.balacelv);
             itemView.setClickable(true);
             itemView.setOnClickListener(this);
             contxt = c;
@@ -49,12 +50,12 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder
             contxt.startActivity(intent);
         }
     }
-    public WalletAdapter (List<Wallet> walletlist,Context passedContext){
-        this.walletlist=walletlist;
-        this.context=passedContext;
-
-    }
-
+//    public WalletAdapter (MainActivity walletlist, List<Wallet> passedContext){
+//        this.walletlist=walletlist;
+//        this.context=passedContext;
+//
+//    }
+//
 
 
     @Override

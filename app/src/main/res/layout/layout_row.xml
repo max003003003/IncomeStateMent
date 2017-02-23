@@ -7,38 +7,38 @@
     android:clickable="true">
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/icon"
+        android:id="@+id/iconlv"
     android:layout_marginLeft="8dp"
     android:layout_width="40dp"
     android:layout_height="40dp"
-    android:layout_marginBottom="8dp"
-    android:src="@drawable/ic_account_balance_wallet_white_24dp"/>
+    android:layout_marginBottom="16dp"
+    />
     <TextView
-    android:id="@+id/name"
+    android:id="@+id/namelv"
     android:layout_width="156dp"
     android:layout_height="wrap_content"
     android:text="Wallet"
     android:textColor="@color/font"
 
     android:textSize="15sp"
-    android:layout_marginTop="8dp"
-    android:layout_marginLeft="8dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginLeft="16dp"
     />
     <TextView
-     android:id="@+id/balace"
+     android:id="@+id/balacelv"
     android:layout_width="136dp"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
+    android:layout_marginTop="16dp"
     android:layout_weight="3"
     android:gravity="right"
-        android:textAlignment="gravity"
+    android:textAlignment="gravity"
     android:textSize="14sp"
     android:textColor="@color/font"
     android:text=""/>
     <ImageView
     android:layout_width="24dp"
     android:layout_height="24dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginTop="16dp"
     android:layout_marginLeft="0dp"
     android:src="@drawable/ic_chevron_right_white_24dp"/>
 </LinearLayout>

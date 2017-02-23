@@ -17,11 +17,15 @@
         </activity>
         <activity
             android:name=".WalletActivity"
-            android:label="WalletActivity" />
-        <activity android:name=".Setting" />
-        <activity android:name=".FormAddBankActivity" />
+            android:label="WalletActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".Setting"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".FormAddBankActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".EditWalletActivity"
-            android:label="Add A Wallet">
+            android:label="Add A Wallet"
+            android:parentActivityName=".MainActivity">
 
         </activity>
     </application>
