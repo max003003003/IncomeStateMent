@@ -1,5 +1,7 @@
 package com.max.incomestatement;
 
+import com.max.incomestatement.data.CategoryDbHelper;
+import com.max.incomestatement.data.TransactionDbHelper;
 import com.max.incomestatement.data.WalletArrayAdapter;
 import com.max.incomestatement.data.WalletContract.WalletEntry;
 
@@ -36,14 +38,15 @@ public class MainActivity extends AppCompatActivity {
     private WalletAdapter wAdapter;
     private WalletArrayAdapter wArrayAdapter;
 
-    DatabaseHelper walletDB;
+
     private WalletDbHelper mDbHelper;
+    private TransactionDbHelper tDbHelper;
+    private CategoryDbHelper cDbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        walletDB = new DatabaseHelper(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         lv.setAdapter(wArrayAdapter);
 
         mDbHelper = new WalletDbHelper(this);
+        cDbHelper=new CategoryDbHelper(this);
+        tDbHelper = new TransactionDbHelper(this);
         //displayDatabaseInfo();
 
 
@@ -68,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
          wArrayAdapter.updateList(getWalletlist());
-        wArrayAdapter.notifyDataSetChanged();
+         wArrayAdapter.notifyDataSetChanged();
     }
 
     public void settings(View view)
@@ -77,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
- /*   public void displayDatabaseInfo() {
-        WalletDbHelper mDbHelper = new WalletDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+   /* public void displayDatabaseInfo() {
+
+        SQLiteDatabase db = tDbHelper.getReadableDatabase();
         String[] project = {
                 WalletEntry._ID,
                 WalletEntry.COLUMN_WALLET_NAME,
@@ -96,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 null,
                 null);
 
-        TextView tvdb= (TextView) findViewById(R.id.textDB);
+        TextView tvdb= (TextView) findViewById(R.id.textdb);
         try{
            tvdb.setText("the wallet contain "+cursor.getCount() +" wallet\n\n");
             tvdb.append( WalletEntry._ID + " - " +
@@ -129,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-    }*/
+    } */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

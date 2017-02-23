@@ -68,9 +68,7 @@ public class EditWalletActivity extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put(WalletContract.WalletEntry.COLUMN_WALLET_NAME, n);
         values.put(WalletContract.WalletEntry.COLUMN_WALLET_BALANCE, b);
-
         values.put(WalletContract.WalletEntry.COLUMN_WALLET_ICON, itemvalue);
-
         values.put(WalletContract.WalletEntry.COLUMN_WALLET_CURRENCY,"th");
         long newRowID = db.insert(WalletContract.WalletEntry.TABLE_NAME,null,values);
 
