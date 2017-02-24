@@ -58,6 +58,7 @@ public class WalletProvider extends ContentProvider {
 
 
         }
+        cursor.setNotificationUri(getContext().getContentResolver(),uri);
         return cursor;
     }
 
@@ -85,6 +86,8 @@ public class WalletProvider extends ContentProvider {
             Log.e(LOG_TAG,"Failed to insert row for"+uri);
             return null;
         }
+
+        getContext().getContentResolver().notifyChange(uri,null);
       return ContentUris.withAppendedId(uri,id);
     }
 
@@ -103,20 +106,29 @@ public class WalletProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-
+        int rowsDeleted;
         SQLiteDatabase database = wDbHelper.getWritableDatabase();
         final int match = sUriMatcher.match(uri);
         switch (match)
         {
             case WALLETS:
-                return database.delete(WalletContract.WalletEntry.TABLE_NAME,selection,selectionArgs);
+                rowsDeleted= database.delete(WalletContract.WalletEntry.TABLE_NAME,selection,selectionArgs);
+                break;
             case WALLET_ID:
                 selection = WalletContract.WalletEntry._ID+"=?";
                 selectionArgs= new String[]{ String.valueOf(ContentUris.parseId(uri))};
-                return database.delete(WalletContract.WalletEntry.TABLE_NAME,selection,selectionArgs);
+                rowsDeleted= database.delete(WalletContract.WalletEntry.TABLE_NAME,selection,selectionArgs);
+                break;
             default:
                 throw new IllegalArgumentException("Delete is not supported for" + uri);
+
         }
+        if(rowsDeleted !=0)
+        {
+            getContext().getContentResolver().notifyChange(uri,null);
+
+        }
+        return rowsDeleted;
     }
     private int updateWallet(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs)
     {
@@ -139,10 +151,11 @@ public class WalletProvider extends ContentProvider {
             }
         }
         SQLiteDatabase database = wDbHelper.getWritableDatabase();
-
-
-        return database.update(WalletContract.WalletEntry.TABLE_NAME,contentValues,selection,selectionArgs);
-
+       int rowsUpdated =  database.update(WalletContract.WalletEntry.TABLE_NAME,contentValues,selection,selectionArgs);
+       if(rowsUpdated !=0 ){
+           getContext().getContentResolver().notifyChange(uri,null);
+       }
+        return rowsUpdated;
     }
 
 

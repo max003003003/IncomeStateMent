@@ -28,6 +28,16 @@
             android:parentActivityName=".MainActivity">
 
         </activity>
+        <provider
+            android:authorities="com.max.incomestatement.wallets"
+            android:name=".data.WalletProvider"
+            android:exported="false"/>
+        <provider
+            android:authorities="com.max.incomestatement.categories"
+            android:name=".data.CategoryProvider"/>
+        <provider
+            android:authorities="com.max.incomestatement.transactions"
+            android:name=".data.TransactionProvider"/>
     </application>
 
 </manifest>

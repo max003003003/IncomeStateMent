@@ -2,6 +2,7 @@ package com.max.incomestatement;
 import com.max.incomestatement.data.WalletDbHelper;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -63,20 +64,13 @@ public class EditWalletActivity extends AppCompatActivity {
     private void insertWallet(){
         String  n=name.getText().toString().trim();
         Double  b= Double.parseDouble( balance.getText().toString().trim());
-        WalletDbHelper mDbHelper = new WalletDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
         ContentValues values = new ContentValues();
         values.put(WalletContract.WalletEntry.COLUMN_WALLET_NAME, n);
         values.put(WalletContract.WalletEntry.COLUMN_WALLET_BALANCE, b);
         values.put(WalletContract.WalletEntry.COLUMN_WALLET_ICON, itemvalue);
         values.put(WalletContract.WalletEntry.COLUMN_WALLET_CURRENCY,"th");
-        long newRowID = db.insert(WalletContract.WalletEntry.TABLE_NAME,null,values);
-
-        if(newRowID == -1 ){
-            Toast.makeText(this,"error",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(this,"Wallet Save "+newRowID, Toast.LENGTH_SHORT).show();
-        }
+        Uri newUri = getContentResolver().insert(WalletContract.WalletEntry.CONTENT_URI,values);
     }
 
 

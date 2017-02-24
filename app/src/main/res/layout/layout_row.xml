@@ -4,15 +4,17 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true">
+
+    >
+
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/iconlv"
-    android:layout_marginLeft="8dp"
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:layout_marginBottom="16dp"
-    />
+        android:layout_marginLeft="8dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="16dp"
+        />
     <TextView
     android:id="@+id/namelv"
     android:layout_width="156dp"

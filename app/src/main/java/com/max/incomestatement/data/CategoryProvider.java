@@ -2,6 +2,7 @@ package com.max.incomestatement.data;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -12,8 +13,16 @@ import android.support.annotation.Nullable;
 
 public class CategoryProvider extends ContentProvider {
 
+    private static final int CATEGORIES = 300;
+    private static final int CATEGORY_ID = 301;
+    private static final UriMatcher sUrimatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
     public static final String LOG_TAG= CategoryProvider.class.getSimpleName();
     private CategoryDbHelper categoryDbHelper;
+    static {
+        sUrimatcher.addURI(CategoryContract.CONTENT_AUTHORITY, CategoryContract.PATH_CATEGORIES,CATEGORIES);
+        sUrimatcher.addURI(CategoryContract.CONTENT_AUTHORITY,CategoryContract.PATH_CATEGORIES+"/#",CATEGORIES);
+    }
 
     @Override
     public boolean onCreate() {

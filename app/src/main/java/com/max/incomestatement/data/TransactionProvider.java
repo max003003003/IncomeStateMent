@@ -2,6 +2,7 @@ package com.max.incomestatement.data;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -11,8 +12,17 @@ import android.support.annotation.Nullable;
  */
 
 public class TransactionProvider extends ContentProvider {
+    private static final int TRANSACTIONS = 200;
+    private static final int TRANSACTION_ID = 201;
+    private static final UriMatcher sUrimatcher = new UriMatcher(UriMatcher.NO_MATCH);
     public  String LOG_TAG = TransactionProvider.class.getSimpleName();
     private TransactionDbHelper transactionDbHelper;
+
+    static {
+        sUrimatcher.addURI(TransactionContract.CONTENT_AUTHORITY,TransactionContract.PATH_TRANSACTIONS,TRANSACTIONS);
+        sUrimatcher.addURI(TransactionContract.CONTENT_AUTHORITY,TransactionContract.PATH_TRANSACTIONS+"/#",TRANSACTION_ID);
+    }
+
     @Override
     public boolean onCreate() {
         transactionDbHelper = new TransactionDbHelper(getContext());
