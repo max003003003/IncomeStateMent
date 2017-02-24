@@ -20,4 +20,17 @@ public class Setting extends AppCompatActivity {
 
     }
 
+    public void categoryAll(View view)
+    {
+        Intent intent= new Intent(this,Category.class);
+        startActivity(intent);
+    }
+
+    public void transactionAll(View view)
+    {
+        Intent intent= new Intent(this,Transaction.class);
+        startActivity(intent);
+    }
+
+
 }

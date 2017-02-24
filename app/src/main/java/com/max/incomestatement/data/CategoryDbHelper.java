@@ -24,7 +24,8 @@ public class CategoryDbHelper extends SQLiteOpenHelper {
 
             String SQL_CREATE_CATEGORY_TABLE= " CREATE TABLE "+ CategoryContract.CategoryEntry.TABLE_NAME + " ( "
                     + CategoryContract.CategoryEntry._ID+" INTEGER PRIMARY KEY AUTOINCREMENT  , "
-                    + CategoryContract.CategoryEntry.COLUMN_CATEGORY_NAME+" TEXT NOT NULL  ) ";
+                    + CategoryContract.CategoryEntry.COLUMN_CATEGORY_NAME+" TEXT NOT NULL ,"
+                    + CategoryContract.CategoryEntry.COLUMN_CATEGORY_ICON+" TEXT NOT NULL ) ";
 
 
             Log.e(TAG, SQL_CREATE_CATEGORY_TABLE.toString());

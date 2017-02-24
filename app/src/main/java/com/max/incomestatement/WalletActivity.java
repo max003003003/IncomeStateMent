@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.Html;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -86,5 +87,10 @@ public class WalletActivity extends AppCompatActivity implements LoaderManager.L
            getSupportActionBar().setTitle("");
            iconimage.setImageResource(0);
 
+    }
+
+    public void addTransaction (View view){
+        Intent intent = new Intent(this,EditTransaction.class);
+        this.startActivity(intent);
     }
 }

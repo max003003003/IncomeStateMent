@@ -18,26 +18,47 @@
         <activity
             android:name=".WalletActivity"
             android:label="WalletActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".Setting"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".FormAddBankActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".EditWalletActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Setting"
+            android:label="Setting"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".FormAddBankActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".EditWalletActivity"
             android:label="Add A Wallet"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".EditTransaction"
+            android:label="Transaction"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Category"
+            android:label="Category"
+            android:parentActivityName=".Setting" />
+        <activity
+            android:name=".Transaction"
+            android:label="Transaction"
+            android:parentActivityName=".Setting" />
+        <activity android:name=".EditCategory"
+            android:label="Edit Category"
+            android:parentActivityName=".Category"
+            ></activity>
 
-        </activity>
         <provider
-            android:authorities="com.max.incomestatement.wallets"
             android:name=".data.WalletProvider"
-            android:exported="false"/>
+            android:authorities="com.max.incomestatement.wallets"
+            android:exported="false" />
         <provider
-            android:authorities="com.max.incomestatement.categories"
-            android:name=".data.CategoryProvider"/>
+            android:name=".data.CategoryProvider"
+            android:authorities="com.max.incomestatement.categories" />
         <provider
-            android:authorities="com.max.incomestatement.transactions"
-            android:name=".data.TransactionProvider"/>
+            android:name=".data.TransactionProvider"
+            android:authorities="com.max.incomestatement.transactions" />
+
+
     </application>
 
 </manifest>
