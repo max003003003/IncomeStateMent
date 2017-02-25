@@ -1,9 +1,14 @@
 package com.max.incomestatement;
 import com.max.incomestatement.data.WalletDbHelper;
+
+import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.Loader;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,12 +23,16 @@ import android.widget.Toast;
 
 import com.max.incomestatement.data.WalletContract;
 
-public class EditWalletActivity extends AppCompatActivity {
+import javax.xml.transform.URIResolver;
+
+public class EditWalletActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>  {
     private  Spinner spinner;
     private  EditText name;
     private  EditText balance;
     private  ArrayAdapter<CharSequence> adapter;
     private  String itemvalue;
+    private  Uri mCurrentUri;
+    private static final int EXISTING_WALLET_LOADER =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +41,18 @@ public class EditWalletActivity extends AppCompatActivity {
         spinner = (Spinner)findViewById(R.id.spinner);
         name = (EditText) findViewById(R.id.nameIn);
         balance= (EditText)findViewById(R.id.balanceIn);
+        mCurrentUri=getIntent().getData();
+
+        if(mCurrentUri!=null)
+        {
+            getLoaderManager().initLoader(EXISTING_WALLET_LOADER,null,this);
+        }
         setSpinner();
+    }
+    public void setInsert()
+    {
+
+
     }
 
     private void setSpinner()
@@ -64,7 +84,6 @@ public class EditWalletActivity extends AppCompatActivity {
     private void insertWallet(){
         String  n=name.getText().toString().trim();
         Double  b= Double.parseDouble( balance.getText().toString().trim());
-
         ContentValues values = new ContentValues();
         values.put(WalletContract.WalletEntry.COLUMN_WALLET_NAME, n);
         values.put(WalletContract.WalletEntry.COLUMN_WALLET_BALANCE, b);
@@ -73,6 +92,10 @@ public class EditWalletActivity extends AppCompatActivity {
         Uri newUri = getContentResolver().insert(WalletContract.WalletEntry.CONTENT_URI,values);
     }
 
+    private void updateWallet(){
+
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,5 +119,53 @@ public class EditWalletActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        String[] projection = {
+                WalletContract.WalletEntry._ID,
+                WalletContract.WalletEntry.COLUMN_WALLET_NAME,
+                WalletContract.WalletEntry.COLUMN_WALLET_ICON,
+                WalletContract.WalletEntry.COLUMN_WALLET_BALANCE,
+                WalletContract.WalletEntry.COLUMN_WALLET_CURRENCY,
+        };
+
+        return new android.content.CursorLoader(this,mCurrentUri,projection,null,null,null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if(mCurrentUri != null) {
+            if (cursor == null || cursor.getCount() < 1) {
+                return;
+            }
+            if (cursor.moveToFirst()) {
+
+                int idColumnIndex = cursor.getColumnIndex(WalletContract.WalletEntry._ID);
+                int nameColumnIndex = cursor.getColumnIndex(WalletContract.WalletEntry.COLUMN_WALLET_NAME);
+                int balanceIndex = cursor.getColumnIndex(WalletContract.WalletEntry.COLUMN_WALLET_BALANCE);
+                int currencyIndex = cursor.getColumnIndex(WalletContract.WalletEntry.COLUMN_WALLET_CURRENCY);
+                int iconIndex = cursor.getColumnIndex(WalletContract.WalletEntry.COLUMN_WALLET_ICON);
+
+                String walletName = cursor.getString(nameColumnIndex);
+                Double walletBalance = cursor.getDouble(balanceIndex);
+                String WalletIcon = cursor.getString(iconIndex);
+                Wallet wallet = new Wallet(walletName, walletBalance, WalletIcon, "th");
+
+
+                balance.setText(walletBalance.toString());
+                name.setText(wallet.getName());
+
+            }
+        }
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+       balance.setText("");
+        name.setText("");
     }
 }

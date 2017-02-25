@@ -91,6 +91,19 @@ public class WalletActivity extends AppCompatActivity implements LoaderManager.L
 
     public void addTransaction (View view){
         Intent intent = new Intent(this,EditTransaction.class);
+        intent.putExtra("mode",1);
+        this.startActivity(intent);
+    }
+    public void withdrawTransaction (View view){
+        Intent intent = new Intent(this,EditTransaction.class);
+        intent.putExtra("mode",2);
+        this.startActivity(intent);
+    }
+
+    public void editWallet(View view)
+    {
+        Intent intent = new Intent(this,EditWalletActivity.class);
+        intent.setData(this.mCurrentWalletUri);
         this.startActivity(intent);
     }
 }
