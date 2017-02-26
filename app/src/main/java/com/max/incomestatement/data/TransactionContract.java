@@ -16,13 +16,16 @@ public final class TransactionContract {
     public static final String PATH_TRANSACTIONS="transactions";
 
     public static final class TransactionEntry implements  BaseColumns {
-        public static  final Uri CONTENT_URI = Uri.withAppendedPath(Base_CONTENT_URI,PATH_TRANSACTIONS);
-        public final static String TABLE_NAME="transaction";
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(Base_CONTENT_URI,PATH_TRANSACTIONS);
+        public final static String TABLE_NAME="transac";
         public final static String _ID = BaseColumns._ID;
         public final static String COLUMN_TRANSACTION_WALLET_ID= "wallet_id";
-        public final static String COLUMN_TRANSACTION_CATEGORY_ID = "category_id ";
-        public final static String COLUMN_TRANSACTION_PAY = "pay";
-        public final static String COLUMN_TRANSACTION_MONTH = "month";
+        public final static String COLUMN_TRANSACTION_CATEGORY_ID= "category_id ";
+        public final static String COLUMN_TRANSACTION_PAY = "pay_amount";
+        public final static String COLUMN_TRANSACTION_BALANCE_BEFORE = "balance_before";
+        public final static String COLUMN_TRANSACTION_BALANCE_AFTER = "balance_after";
+        public final static String COLUMN_TRANSACTION_ICON = "icon";
+        public final static String COLUMN_TRANSACTION_MONTH = "month_time";
         public final static String COLUMN_TRANSACTION_DATETIME = "date_time";
 
     }

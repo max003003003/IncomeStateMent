@@ -1,7 +1,9 @@
 package com.max.incomestatement;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +18,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.max.incomestatement.data.CategoryContract;
+import com.max.incomestatement.data.TransactionContract;
+import com.max.incomestatement.data.WalletContract;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,11 +37,14 @@ public class EditTransaction extends AppCompatActivity {
     private EditText amount;
     private CalendarView calenda;
     private EditText time;
+    private int categoryid;
     private String categorystring;
     private String date;
     private Date d;
+    private double balance;
+    private Uri mCurrentWalletUri;
     private int mode;
-
+    private int walletID;
 
 
     @Override
@@ -50,6 +57,10 @@ public class EditTransaction extends AppCompatActivity {
         time =(EditText) findViewById(R.id.timeedittransaction);
         mode = getIntent().getExtras().getInt("mode");
 
+        mCurrentWalletUri= getIntent().getData();
+
+        Toast.makeText(this,""+mCurrentWalletUri,Toast.LENGTH_SHORT).show();
+
 
         setupTime();
         setupCalenda();
@@ -61,7 +72,7 @@ public class EditTransaction extends AppCompatActivity {
         }else
         {
             setTitle("Withdraw");
-            setupspinner();
+             setupspinner();
         }
 
     }
@@ -77,7 +88,7 @@ public class EditTransaction extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                categorystring = nameCats.get((int) adapterView.getItemIdAtPosition(i));
+                categoryid = (int) adapterView.getItemIdAtPosition(i);
             }
 
             @Override
@@ -102,13 +113,41 @@ public class EditTransaction extends AppCompatActivity {
             d=    new Date(calenda.getDate());
 
         }
+
         String currentdate= ss.format(d);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//
+//        builder.setMessage(amount.getText()+" - "+categoryid+" - "+ currentdate+" - "+time.getText());
+//        builder.show();
 
-        builder.setMessage(amount.getText()+" - "+categorystring+" - "+ currentdate+" - "+time.getText());
-        builder.show();
-        AlertDialog dialog = builder.create();
+        double afterpay = balance - Double.parseDouble(amount.getText().toString());
+        if(afterpay <0){return;}
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM");
+//
+//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+//        alertDialogBuilder.setMessage(""+amount.getText().toString()+"-"+afterpay+"-"+balance+"-"+categoryid+"-"+walletID+"-"+d.getTime()+"-"+Integer.parseInt( dateFormat.format(d)));
+//        alertDialogBuilder.show();
+
+
+
+        ContentValues values = new ContentValues();
+
+        values.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_PAY, Double.parseDouble(amount.getText().toString().trim()));
+        values.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_BALANCE_AFTER,afterpay);
+        values.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_BALANCE_BEFORE,balance);
+        values.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_CATEGORY_ID,  categoryid+1);
+        values.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_WALLET_ID, walletID);
+        values.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_DATETIME, 1234);
+        values.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_MONTH, Integer.parseInt( dateFormat.format(d)));
+        values.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_ICON,"sim");
+
+        Uri newUri = getContentResolver().insert(TransactionContract.TransactionEntry.CONTENT_URI,values);
+
+
+        finish();
+
     }
     public void setupCalenda(){
         calenda.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -153,8 +192,24 @@ public class EditTransaction extends AppCompatActivity {
         String[] projection = {
                 CategoryContract.CategoryEntry.COLUMN_CATEGORY_ICON
         };
+
+        String[] projection2 = {
+                WalletContract.WalletEntry._ID,
+                WalletContract.WalletEntry.COLUMN_WALLET_BALANCE
+        };
         ArrayList<String> nameCats=new ArrayList<>();
+
+
         Cursor cursor = getContentResolver().query(CategoryContract.CategoryEntry.CONTENT_URI,projection,null,null,null);
+        Cursor cursor2 = getContentResolver().query(WalletContract.WalletEntry.CONTENT_URI,projection2,null,null,null);
+
+        while (cursor2.moveToNext())
+        {
+            walletID= cursor2.getInt(cursor2.getColumnIndex(WalletContract.WalletEntry._ID));
+            balance=cursor2.getDouble(cursor2.getColumnIndex(WalletContract.WalletEntry.COLUMN_WALLET_BALANCE));
+        }
+
+
         while (cursor.moveToNext())
         {
             int columnIndexName = cursor.getColumnIndex(CategoryContract.CategoryEntry.COLUMN_CATEGORY_ICON);

@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.max.incomestatement.Transaction;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -23,18 +25,16 @@ public class TransactionDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-
         String SQL_CREATE_WALLET_TABLE= " CREATE TABLE "+ TransactionContract.TransactionEntry.TABLE_NAME + " ( "
                 + TransactionContract.TransactionEntry._ID+" INTEGER PRIMARY KEY AUTOINCREMENT , "
-                + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_WALLET_ID+" INTEGER NOT NULL , "
-                + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_CATEGORY_ID+" INTEGER NOT NULL , "
-                + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_PAY +" REAL NOT NULL ,"
-                + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_MONTH+" INTEGER NOT NULL , "
-                + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_DATETIME +" INTEGER NOT NULL , "
-                + " FOREIGN KEY ( " + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_WALLET_ID+ " ) REFERENCES  "+ WalletContract.WalletEntry.TABLE_NAME+"  (  "+WalletContract.WalletEntry._ID+" ) , "
-                + " FOREIGN KEY ( " + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_CATEGORY_ID+ " ) REFERENCES  "+ CategoryContract.CategoryEntry.TABLE_NAME+"  (  "+ CategoryContract.CategoryEntry._ID+" ) ); ";
-
-
+                + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_WALLET_ID+" INTEGER  , "
+                + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_CATEGORY_ID+" INTEGER  , "
+                + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_PAY +" REAL , "
+                + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_MONTH+" INTEGER  , "
+                + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_BALANCE_BEFORE+ " REAL  , "
+                + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_ICON + " TEXT , "
+                + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_BALANCE_AFTER+ " REAL  , "
+                + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_DATETIME +" INTEGER   ) ";
 
         try {
             db.execSQL(SQL_CREATE_WALLET_TABLE);
