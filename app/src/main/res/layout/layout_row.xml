@@ -16,6 +16,7 @@
         android:layout_marginBottom="16dp"
         />
     <TextView
+
     android:id="@+id/namelv"
     android:layout_width="156dp"
     android:layout_height="wrap_content"

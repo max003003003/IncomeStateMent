@@ -26,6 +26,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
                 Intent intent = new Intent(MainActivity.this, WalletActivity.class);
                 Uri currentWallwetUri = ContentUris.withAppendedId(WalletEntry.CONTENT_URI,id);
+                intent.putExtra("walletid",id);
+
                 intent.setData(currentWallwetUri);
                 startActivity(intent);
             }

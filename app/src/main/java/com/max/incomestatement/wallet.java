@@ -33,6 +33,10 @@ public class Wallet {
         return df.format(this.balance)+" ฿";
     }
 
+    public String getBalannceString(){
+        return Double.toString(balance);
+    }
+
     public void setName(String name) {
         if(name!="" && name!=null){this.name=name;}
     }

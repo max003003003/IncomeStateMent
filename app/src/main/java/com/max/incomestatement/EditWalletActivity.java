@@ -32,6 +32,8 @@ public class EditWalletActivity extends AppCompatActivity implements LoaderManag
     private  ArrayAdapter<CharSequence> adapter;
     private  String itemvalue;
     private  Uri mCurrentUri;
+    private  int mode=1;
+
     private static final int EXISTING_WALLET_LOADER =0;
 
     @Override
@@ -45,15 +47,12 @@ public class EditWalletActivity extends AppCompatActivity implements LoaderManag
 
         if(mCurrentUri!=null)
         {
+            mode=2;
             getLoaderManager().initLoader(EXISTING_WALLET_LOADER,null,this);
         }
         setSpinner();
     }
-    public void setInsert()
-    {
 
-
-    }
 
     private void setSpinner()
     {
@@ -82,14 +81,28 @@ public class EditWalletActivity extends AppCompatActivity implements LoaderManag
         });
     }
     private void insertWallet(){
-        String  n=name.getText().toString().trim();
-        Double  b= Double.parseDouble( balance.getText().toString().trim());
-        ContentValues values = new ContentValues();
-        values.put(WalletContract.WalletEntry.COLUMN_WALLET_NAME, n);
-        values.put(WalletContract.WalletEntry.COLUMN_WALLET_BALANCE, b);
-        values.put(WalletContract.WalletEntry.COLUMN_WALLET_ICON, itemvalue);
-        values.put(WalletContract.WalletEntry.COLUMN_WALLET_CURRENCY,"th");
-        Uri newUri = getContentResolver().insert(WalletContract.WalletEntry.CONTENT_URI,values);
+
+        if(mode==1) {
+            String n = name.getText().toString().trim();
+            Double b = Double.parseDouble(balance.getText().toString().trim());
+            ContentValues values = new ContentValues();
+            values.put(WalletContract.WalletEntry.COLUMN_WALLET_NAME, n);
+            values.put(WalletContract.WalletEntry.COLUMN_WALLET_BALANCE, b);
+            values.put(WalletContract.WalletEntry.COLUMN_WALLET_ICON, itemvalue);
+            values.put(WalletContract.WalletEntry.COLUMN_WALLET_CURRENCY, "th");
+            Uri newUri = getContentResolver().insert(WalletContract.WalletEntry.CONTENT_URI, values);
+        }
+        else{
+            String n = name.getText().toString().trim();
+            ContentValues values = new ContentValues();
+            values.put(WalletContract.WalletEntry.COLUMN_WALLET_NAME, n);
+            values.put(WalletContract.WalletEntry.COLUMN_WALLET_ICON, itemvalue);
+            getContentResolver().update(mCurrentUri, values,null,null);
+
+
+
+        }
+        finish();
     }
 
     private void updateWallet(){
@@ -159,6 +172,10 @@ public class EditWalletActivity extends AppCompatActivity implements LoaderManag
                 name.setText(wallet.getName());
 
             }
+        }
+        if(mode==2) {
+            balance.setEnabled(false);
+
         }
 
     }

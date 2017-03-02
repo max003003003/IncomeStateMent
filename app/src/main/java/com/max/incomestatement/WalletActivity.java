@@ -1,6 +1,7 @@
 package com.max.incomestatement;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,12 +28,13 @@ public class WalletActivity extends AppCompatActivity {
 
     AppCompatImageView iconimage;
     TextView balancetv;
+    String balanceString;
     public static  Uri mCurrentWalletUri;
     private Context contex;
     private TransactionCursorAdapter transactionCursorAdapter;
     private ListView transactionListView;
     private long walletid;
-
+    private String categoryName;
     private static final int EXISTING_WALLET_LOADER =0;
     private static final int EXISTING_TRANSACTION_LOADER=1;
     @Override
@@ -50,6 +53,21 @@ public class WalletActivity extends AppCompatActivity {
 
         transactionCursorAdapter = new TransactionCursorAdapter(this,null);
         transactionListView.setAdapter(transactionCursorAdapter);
+
+        transactionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
+
+                Intent intent = new Intent(WalletActivity.this, EditTransaction.class);
+                TextView transid=(TextView) view.findViewById(R.id.transaction_row_transaction_id);
+                intent.setData(mCurrentWalletUri);
+                intent.putExtra("transactionID",transid.getText());
+                intent.putExtra("balance", balanceString);
+                intent.putExtra("walletid",walletid);
+                intent.putExtra("mode",3);
+                startActivity(intent);
+            }
+        });
 
 
         getLoaderManager().initLoader(EXISTING_WALLET_LOADER,null,new WalletLoader());
@@ -96,7 +114,7 @@ public class WalletActivity extends AppCompatActivity {
                 Wallet wallet =new Wallet(walletName,walletBalance,WalletIcon,"th");
 
                 getSupportActionBar().setTitle(wallet.getName());
-
+                balanceString = wallet.getBalannceString();
                 balancetv.setText(wallet.getBalace());
                 iconimage.setImageResource(wallet.getIcon());
 
@@ -152,7 +170,7 @@ public class WalletActivity extends AppCompatActivity {
     public void withdrawTransaction (View view){
         Intent intent = new Intent(this,EditTransaction.class);
         intent.putExtra("mode",2);
-        intent.putExtra("balance", balancetv.getText().toString());
+        intent.putExtra("balance", balanceString);
         intent.putExtra("walletid",walletid);
         intent.setData(mCurrentWalletUri);
         this.startActivity(intent);
@@ -161,6 +179,7 @@ public class WalletActivity extends AppCompatActivity {
     public void editWallet(View view)
     {
         Intent intent = new Intent(this,EditWalletActivity.class);
+
         intent.setData(this.mCurrentWalletUri);
         this.startActivity(intent);
     }

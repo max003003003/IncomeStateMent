@@ -64,7 +64,17 @@ public class TransactionProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(Uri uri) {
-        return null;
+
+        final int match=sUriMatcher.match(uri);
+        switch (match){
+            case TRANSACTIONS:
+                return TransactionContract.TransactionEntry.CONTENT_LIST_TYPE;
+            case TRANSACTION_ID:
+                return TransactionContract.TransactionEntry.CONTENT_ITEM_TYPE;
+            default:
+                throw new IllegalArgumentException("Unknown URI"+uri+"with match"+match);
+
+        }
     }
 
 
@@ -101,12 +111,62 @@ public class TransactionProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(Uri uri, String s, String[] strings) {
-        return 0;
+    public int delete(Uri uri, String selection, String[] selectionArgs)
+    {
+
+        int rowsDeleted;
+        SQLiteDatabase database = transactionDbHelper.getWritableDatabase();
+        final int match = sUriMatcher.match(uri);
+        switch (match)
+        {
+            case TRANSACTIONS:
+                rowsDeleted= database.delete(TransactionContract.TransactionEntry.TABLE_NAME,selection,selectionArgs);
+                break;
+            case TRANSACTION_ID:
+                selection = TransactionContract.TransactionEntry._ID+"=?";
+                selectionArgs= new String[]{ String.valueOf(ContentUris.parseId(uri))};
+                rowsDeleted= database.delete(TransactionContract.TransactionEntry.TABLE_NAME,selection,selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Delete is not supported for" + uri);
+
+        }
+        if(rowsDeleted !=0)
+        {
+            getContext().getContentResolver().notifyChange(uri,null);
+
+        }
+        return rowsDeleted;
     }
 
-    @Override
-    public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
-        return 0;
+    private int updateTransaction(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs)
+    {
+
+        SQLiteDatabase database = transactionDbHelper.getWritableDatabase();
+        int rowsUpdated =  database.update(TransactionContract.TransactionEntry.TABLE_NAME,contentValues,selection,selectionArgs);
+        if(rowsUpdated !=0 ){
+            getContext().getContentResolver().notifyChange(uri,null);
+        }
+        return rowsUpdated;
     }
+
+
+    @Override
+    public int update(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case TRANSACTIONS:
+                return updateTransaction(uri,contentValues,selection,selectionArgs);
+            case TRANSACTION_ID:
+                selection = TransactionContract.TransactionEntry._ID+"=?";
+                selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
+                return updateTransaction(uri,contentValues,selection,selectionArgs);
+            default:
+                throw new IllegalArgumentException("Update is not supported for "+uri);
+        }
+
+
+    }
+
 }
