@@ -2,6 +2,7 @@ package com.max.incomestatement;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,18 +44,24 @@ public class TransactionCursorAdapter extends CursorAdapter {
         TextView transactionID =(TextView) view.findViewById(R.id.transaction_row_transaction_id);
 
 
+
         int transactionColumnID = cursor.getColumnIndex(TransactionContract.TransactionEntry._ID);
         int paymentCulumnIndex = cursor.getColumnIndex(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_PAY);
         int dateTimeColumnIndex = cursor.getColumnIndex(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_DATETIME);
         int iconColumnIndex= cursor.getColumnIndex(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_ICON);
         int cateNameColumnIndex =cursor.getColumnIndex("category_name");
-
+        int typeColumnIndex = cursor.getColumnIndex(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_TYPE);
 
         int tranid = cursor.getInt(transactionColumnID);
+        Log.d("co",""+cursor.getColumnCount());
+
+        String transactionType=cursor.getString(typeColumnIndex);
+
         String transactionName=cursor.getString(cateNameColumnIndex);
         String transactionDatetime=cursor.getString(dateTimeColumnIndex);
         Double transactionPay = cursor.getDouble(paymentCulumnIndex);
         String WalletIcon = cursor.getString(iconColumnIndex);
+        String catename = cursor.getString(cateNameColumnIndex);
 
         DecimalFormat df = new DecimalFormat("#,###.00");
 
@@ -62,8 +69,22 @@ public class TransactionCursorAdapter extends CursorAdapter {
        SimpleDateFormat ss = new SimpleDateFormat("dd/MM/yyyy : hh:mm:ss ");
        Date s = new Date(Long.parseLong( transactionDatetime.toString()));
        Log.d("date",ss.format(s));
+        Log.d("tC",transactionType+"");
        //  ss.format( new Date(Long.parseLong( transactionDatetime.toString())));
+        if(transactionType.equals("d"))
+        {
+            cateDate.setTextColor( ContextCompat.getColor(context, R.color.fontmain) );
+            cateName.setTextColor( ContextCompat.getColor(context, R.color.fontmain) );
+            payment.setTextColor(ContextCompat.getColor(context, R.color.fontmain));
 
+
+        }else
+        {
+            cateDate.setTextColor( ContextCompat.getColor(context, R.color.fontred) );
+            cateName.setTextColor( ContextCompat.getColor(context, R.color.fontred) );
+            payment.setTextColor(ContextCompat.getColor(context, R.color.fontred));
+        }
+        icon.setImageResource(CategoryNameManager.getIcon(catename));
 
         cateDate.setText(ss.format(s));
          cateName.setText(transactionName);

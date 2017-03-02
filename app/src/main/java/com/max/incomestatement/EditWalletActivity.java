@@ -3,14 +3,18 @@ import com.max.incomestatement.data.WalletDbHelper;
 
 import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.CursorLoader;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -128,8 +132,10 @@ public class EditWalletActivity extends AppCompatActivity implements LoaderManag
                 return true;
 
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                finish();
                 return true;
+
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -185,4 +191,28 @@ public class EditWalletActivity extends AppCompatActivity implements LoaderManag
        balance.setText("");
         name.setText("");
     }
+
+    public void deleteWallet(View view)
+    {
+        Log.d("wallet",mCurrentUri+"");
+        final AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        adb.setTitle("Confirm?");
+        adb.setMessage("Plese Confirm");
+        adb.setNegativeButton("Cancel", null);
+        adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int arg1) {
+
+                getContentResolver().delete(mCurrentUri,null,null);
+                Toast.makeText(getApplicationContext(),"Wallet has removed",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
+        adb.show();
+    }
+
+
 }

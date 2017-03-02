@@ -1,7 +1,9 @@
 package com.max.incomestatement;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -64,7 +66,9 @@ public class EditTransaction extends AppCompatActivity {
         mode = getIntent().getExtras().getInt("mode");
 
         walletID=getIntent().getExtras().getLong("walletid");
-        String balancetemp =getIntent().getExtras().getString("balance");
+        String balancetemp = getIntent().getExtras().getString("balance");
+        Log.d("first",balancetemp);
+
         balance=Double.parseDouble(balancetemp);
         mCurrentWalletUri= getIntent().getData();
 
@@ -83,10 +87,9 @@ public class EditTransaction extends AppCompatActivity {
 
         if(mode == 1)
         {
+            Log.d("mode","mode 1 naja");
             setTitle("Deposit");
             setUpdeposit();
-
-
 
             balance=Double.parseDouble( balancetemp);
         }else if (mode == 2)
@@ -95,17 +98,15 @@ public class EditTransaction extends AppCompatActivity {
              setupspinner();
 
 
+
             balance=Double.parseDouble( balancetemp);
         }else if(mode == 3)
         {
             setupspinner();
             setTitle("Edit Transaction");
             String transactionID =getIntent().getExtras().getString("transactionID");
-            Log.d("transID",transactionID);
-            Log.d("balance",balancetemp);
+
             mCurrentTransactionUri = Uri.withAppendedPath(TransactionContract.TransactionEntry.CONTENT_URI,transactionID);
-            Log.d("uri",""+mCurrentTransactionUri);
-            Log.d("walletURI",""+mCurrentWalletUri);
 
             setUpTranSactionEdit();
 
@@ -156,7 +157,7 @@ public class EditTransaction extends AppCompatActivity {
     public  void setUpdeposit(){
         nameCats = new ArrayList<>();
         nameCats.add("Income");
-        nameCats.add("Bank");
+
 
         adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,nameCats );
 
@@ -209,6 +210,8 @@ public class EditTransaction extends AppCompatActivity {
         values.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_DATETIME, d.getTime());
         values.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_MONTH, Integer.parseInt( dateFormat.format(d)));
         values.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_ICON,"sim");
+        values.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_TYPE,"w");
+
         ContentValues values2 = new ContentValues();
         values2.put(WalletContract.WalletEntry.COLUMN_WALLET_BALANCE,afterpay);
 
@@ -225,6 +228,7 @@ public class EditTransaction extends AppCompatActivity {
             values4.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_MONTH, Integer.parseInt( dateFormat.format(d)));
             values4.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_ICON,"sim");
 
+
             getContentResolver().update(mCurrentTransactionUri,values4,null,null);
 
             ContentValues values5 = new ContentValues();
@@ -234,11 +238,35 @@ public class EditTransaction extends AppCompatActivity {
             finish();
 
 
-        }else {
+        }else if(mode  == 2) {
+
             getContentResolver().insert(TransactionContract.TransactionEntry.CONTENT_URI, values);
             //Uri temp = Uri.withAppendedPath(WalletContract.WalletEntry.CONTENT_URI, Long.toString(walletID));
             getContentResolver().update(mCurrentWalletUri, values2, null, null);
             finish();
+
+        }else if(mode == 1)
+        {
+            ContentValues contenfordeposit = new ContentValues();
+            contenfordeposit.put(WalletContract.WalletEntry.COLUMN_WALLET_BALANCE,(balance+pay));
+            getContentResolver().update(mCurrentWalletUri, contenfordeposit, null, null);
+
+            ContentValues valuefordeposit = new ContentValues();
+            valuefordeposit.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_PAY, pay);
+            valuefordeposit.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_BALANCE_AFTER, (balance+pay));
+            valuefordeposit.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_BALANCE_BEFORE, balance);
+            valuefordeposit.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_CATEGORY_NAME,  "income");
+            valuefordeposit.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_WALLET_ID, walletID);
+            valuefordeposit.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_DATETIME, d.getTime());
+            valuefordeposit.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_MONTH, Integer.parseInt( dateFormat.format(d)));
+            valuefordeposit.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_ICON,"sim");
+            valuefordeposit.put(TransactionContract.TransactionEntry.COLUMN_TRANSACTION_TYPE,"d");
+
+            getContentResolver().insert(TransactionContract.TransactionEntry.CONTENT_URI, valuefordeposit);
+
+
+            finish();
+
         }
 
     }
@@ -259,7 +287,9 @@ public class EditTransaction extends AppCompatActivity {
     }
 
     public void setupspinner(){
-        nameCats=setUpData();
+
+
+        nameCats=CategoryNameManager.getCategoyname();
 
         adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,nameCats);
 
@@ -282,28 +312,7 @@ public class EditTransaction extends AppCompatActivity {
 
     }
 
-    public ArrayList<String> setUpData() {
-        String[] projection = {
-                CategoryContract.CategoryEntry.COLUMN_CATEGORY_ICON
-        };
 
-
-        ArrayList<String> nameCats=new ArrayList<>();
-
-
-        Cursor cursor = getContentResolver().query(CategoryContract.CategoryEntry.CONTENT_URI,projection,null,null,null);
-
-
-
-
-        while (cursor.moveToNext())
-        {
-            int columnIndexName = cursor.getColumnIndex(CategoryContract.CategoryEntry.COLUMN_CATEGORY_ICON);
-            nameCats.add(cursor.getString(columnIndexName));
-
-        }
-        return nameCats;
-    }
 
     public void setupTime()
     {
@@ -335,7 +344,13 @@ public class EditTransaction extends AppCompatActivity {
             case R.id.action_delete_transaction:
                 deleteTransaction();
                 return true;
+           case android.R.id.home:
+                    finish();
+                    return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }

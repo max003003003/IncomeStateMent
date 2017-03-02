@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/report_icon"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/drink"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        />
+
+
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/reportcat_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Food"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+
+            android:textSize="20sp"
+            />
+    <TextView
+        android:id="@+id/report_percent"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:textSize="20sp"
+        android:text="70 %"
+
+        android:textAlignment="center"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>

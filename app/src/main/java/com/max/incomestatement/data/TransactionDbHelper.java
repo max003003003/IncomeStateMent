@@ -18,7 +18,7 @@ public class TransactionDbHelper extends SQLiteOpenHelper {
     SQLiteDatabase db;
 
     public TransactionDbHelper(Context context) {
-        super(context, TransactionContract.TransactionEntry.TABLE_NAME, null, 1);
+        super(context, TransactionContract.TransactionEntry.TABLE_NAME, null,2);
          db = this.getWritableDatabase();
 
     }
@@ -34,6 +34,7 @@ public class TransactionDbHelper extends SQLiteOpenHelper {
                 + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_BALANCE_BEFORE+ " REAL  NOT NULL , "
                 + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_ICON + " TEXT NOT NULL , "
                 + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_BALANCE_AFTER+ " REAL  NOT NULL , "
+                + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_TYPE+ " TEXT NOT NULL , "
                 + TransactionContract.TransactionEntry.COLUMN_TRANSACTION_DATETIME +" TEXT  NOT NULL ) ";
 
             db.execSQL(SQL_CREATE_WALLET_TABLE);

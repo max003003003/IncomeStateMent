@@ -69,6 +69,13 @@ public class WalletActivity extends AppCompatActivity {
             }
         });
 
+        getContentResolver().query( TransactionContract.TransactionEntry.CONTENT_URI ,
+                TransactionContract.TransactionEntry.projection,
+                TransactionContract.TransactionEntry.COLUMN_TRANSACTION_WALLET_ID+" =  "+walletid ,
+                null,null);
+
+
+
 
         getLoaderManager().initLoader(EXISTING_WALLET_LOADER,null,new WalletLoader());
         getLoaderManager().initLoader(EXISTING_TRANSACTION_LOADER,null,new TransactionLoader());
@@ -144,7 +151,9 @@ public class WalletActivity extends AppCompatActivity {
                     TransactionContract.TransactionEntry.COLUMN_TRANSACTION_WALLET_ID,
                     TransactionContract.TransactionEntry.COLUMN_TRANSACTION_CATEGORY_NAME,
                     TransactionContract.TransactionEntry.COLUMN_TRANSACTION_DATETIME,
-                    TransactionContract.TransactionEntry.COLUMN_TRANSACTION_ICON  };
+                    TransactionContract.TransactionEntry.COLUMN_TRANSACTION_ICON,
+                    TransactionContract.TransactionEntry.COLUMN_TRANSACTION_TYPE};
+
 
             return new CursorLoader(contex, TransactionContract.TransactionEntry.CONTENT_URI,projection, TransactionContract.TransactionEntry.COLUMN_TRANSACTION_WALLET_ID+" =  "+walletid  ,null,null);
         }
@@ -163,7 +172,11 @@ public class WalletActivity extends AppCompatActivity {
     public void addTransaction (View view){
         Intent intent = new Intent(this,EditTransaction.class);
         intent.putExtra("mode",1);
+        intent.putExtra("balance", balanceString);
+        intent.putExtra("walletid",walletid);
+        intent.setData(mCurrentWalletUri);
         this.startActivity(intent);
+
     }
 
 
@@ -173,6 +186,13 @@ public class WalletActivity extends AppCompatActivity {
         intent.putExtra("balance", balanceString);
         intent.putExtra("walletid",walletid);
         intent.setData(mCurrentWalletUri);
+        this.startActivity(intent);
+    }
+
+    public void report(View view)
+    {
+        Intent intent = new Intent(this,Report.class);
+        intent.putExtra("walletid",walletid);
         this.startActivity(intent);
     }
 

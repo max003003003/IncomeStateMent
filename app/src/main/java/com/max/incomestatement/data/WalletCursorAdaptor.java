@@ -39,6 +39,7 @@ public class WalletCursorAdaptor extends CursorAdapter {
         int balanceColumnIndex = cursor.getColumnIndex(WalletContract.WalletEntry.COLUMN_WALLET_BALANCE);
         int iconColumnIndex= cursor.getColumnIndex(WalletContract.WalletEntry.COLUMN_WALLET_ICON);
 
+
         String walletName=cursor.getString(nameCulumnIndex);
         Double walletBalance =cursor.getDouble(balanceColumnIndex);
         String WalletIcon = cursor.getString(iconColumnIndex);

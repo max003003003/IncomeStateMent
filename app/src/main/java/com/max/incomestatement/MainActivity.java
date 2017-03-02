@@ -102,11 +102,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-         getMenuInflater().inflate(R.menu.menu_wallet, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//         getMenuInflater().inflate(R.menu.menu_wallet, menu);
+//        return true;
+//    }
 
     @Override
     protected void onStart() {
@@ -114,19 +114,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
        // displayDatabaseInfo();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_insert_dummy_data:
-                insertWallet();
-
-                return true;
-            case R.id.action_delete_dummy_data:
-                deleteWallet();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()){
+//            case R.id.action_insert_dummy_data:
+//                insertWallet();
+//
+//                return true;
+//            case R.id.action_delete_dummy_data:
+//                deleteWallet();
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
     private void insertWallet(){
         ContentValues values = new ContentValues();
         values.put(WalletEntry.COLUMN_WALLET_NAME, "Kasikorn Bank");

@@ -18,6 +18,17 @@ public final class TransactionContract {
 
     public static final class TransactionEntry implements  BaseColumns {
 
+        public  static  final String[] projection = {
+                TransactionContract.TransactionEntry._ID,
+                TransactionContract.TransactionEntry.COLUMN_TRANSACTION_BALANCE_AFTER,
+                TransactionContract.TransactionEntry.COLUMN_TRANSACTION_BALANCE_BEFORE,
+                TransactionContract.TransactionEntry.COLUMN_TRANSACTION_PAY,
+                TransactionContract.TransactionEntry.COLUMN_TRANSACTION_WALLET_ID,
+                TransactionContract.TransactionEntry.COLUMN_TRANSACTION_CATEGORY_NAME,
+                TransactionContract.TransactionEntry.COLUMN_TRANSACTION_DATETIME,
+                TransactionContract.TransactionEntry.COLUMN_TRANSACTION_ICON,
+                TransactionContract.TransactionEntry.COLUMN_TRANSACTION_TYPE};
+
         public static final String CONTENT_LIST_TYPE=
                 ContentResolver.CURSOR_DIR_BASE_TYPE+"/"+CONTENT_AUTHORITY+"/"+PATH_TRANSACTIONS;
         public static  final String CONTENT_ITEM_TYPE=
@@ -34,6 +45,7 @@ public final class TransactionContract {
         public final static String COLUMN_TRANSACTION_ICON = "icon";
         public final static String COLUMN_TRANSACTION_MONTH = "month_time";
         public final static String COLUMN_TRANSACTION_DATETIME = "date_time";
+        public final static String COLUMN_TRANSACTION_TYPE = "type";
 
     }
 
