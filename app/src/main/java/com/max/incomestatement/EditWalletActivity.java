@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -53,6 +54,11 @@ public class EditWalletActivity extends AppCompatActivity implements LoaderManag
         {
             mode=2;
             getLoaderManager().initLoader(EXISTING_WALLET_LOADER,null,this);
+        }
+        if(mode==1)
+        {
+            Button btn = (Button) findViewById(R.id.delete_wallet);
+            btn.setVisibility(View.GONE);
         }
         setSpinner();
     }
@@ -118,6 +124,7 @@ public class EditWalletActivity extends AppCompatActivity implements LoaderManag
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.edit_wallet, menu);
+
 
         return true;
     }

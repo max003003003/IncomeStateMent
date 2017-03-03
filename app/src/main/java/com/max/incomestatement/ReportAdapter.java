@@ -40,8 +40,9 @@ public class ReportAdapter extends ArrayAdapter<ReportData> {
         ImageView icon =(ImageView) convertView.findViewById(R.id.report_icon);
         // Populate the data into the template view using the data object
         tvcat.setText(user.getname());
-        tvpercent.setText(user.getpercent());
-        Log.d("adap",user.getname());
+
+        tvpercent.setText(String.format("%.2f ",Double.parseDouble(user.getpercent()))+" %");
+
         icon.setImageResource(CategoryNameManager.getIcon(user.getname()));
         // Return the completed view to render on screen
         return convertView;
