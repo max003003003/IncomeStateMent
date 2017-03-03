@@ -193,11 +193,12 @@ public class EditTransaction extends AppCompatActivity {
         d.setMinutes(Integer.parseInt(timesplit[1]));
 
         double afterpay = balance - Double.parseDouble(amount.getText().toString());
-
-        if(afterpay <0){
-            Toast.makeText(this,"Money not enough",Toast.LENGTH_SHORT).show();
-            return;}
-
+       if(mode!=1) {
+           if (afterpay < 0) {
+               Toast.makeText(this, "Money not enough", Toast.LENGTH_SHORT).show();
+               return;
+           }
+       }
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM");
 
         ContentValues values = new ContentValues();
