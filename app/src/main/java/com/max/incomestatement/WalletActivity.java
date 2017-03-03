@@ -193,6 +193,7 @@ public class WalletActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this,Report.class);
         intent.putExtra("walletid",walletid);
+        intent.putExtra("balance", balanceString);
         this.startActivity(intent);
     }
 

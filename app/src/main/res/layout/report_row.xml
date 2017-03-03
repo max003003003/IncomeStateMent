@@ -12,11 +12,13 @@
 
 
         <TextView
+            android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:id="@+id/reportcat_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Food"
+
             android:gravity="left"
             android:layout_marginTop="16dp"
 

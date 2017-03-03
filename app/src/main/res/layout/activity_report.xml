@@ -24,13 +24,18 @@
 
             android:layout_weight="1">
         <TextView
+            android:textColor="@color/font"
             android:layout_width="wrap_content"
             android:text="Deposit"
+            android:textAlignment="center"
             android:textSize="18sp"
             android:layout_height="wrap_content" />
         <TextView
+            android:textColor="@color/font"
+            android:id="@+id/report_deposit_sum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:text="500"/>
          </LinearLayout>
 
@@ -42,13 +47,18 @@
                 android:orientation="vertical"
                 android:layout_weight="1">
                 <TextView
+                    android:textColor="@color/font"
                     android:layout_width="wrap_content"
+                    android:textAlignment="center"
                     android:text="Withdraw"
                     android:textSize="18sp"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:textColor="@color/font"
+                    android:id="@+id/report_withdraw_sum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAlignment="center"
                     android:text="500"/>
             </LinearLayout>
 
@@ -59,15 +69,41 @@
                     android:orientation="vertical"
                     android:layout_weight="1">
                     <TextView
+                        android:textColor="@color/font"
                         android:layout_width="wrap_content"
+                        android:textAlignment="center"
                         android:text="balance"
                         android:textSize="18sp"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:textColor="@color/font"
+                        android:id="@+id/report_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textAlignment="center"
                         android:text="500"/>
                 </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:textColor="@color/font"
+                android:layout_width="wrap_content"
+                android:textAlignment="center"
+                android:text="Total"
+                android:textSize="18sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/font"
+                android:id="@+id/report_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="500"/>
+        </LinearLayout>
 
     </LinearLayout>
 

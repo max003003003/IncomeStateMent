@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -48,6 +49,13 @@ public class Report extends AppCompatActivity {
      private static final int EXISTING_TRANSACTION_LOADER=0;
     private ListView lv;
 
+    private TextView depositSum;
+    private TextView withdrawSum;
+    private TextView balanceSum;
+
+    private String balanceIn;
+    private TextView totalSum;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +64,11 @@ public class Report extends AppCompatActivity {
         walletID=getIntent().getExtras().getLong("walletid");
         contex=this;
         lv = (ListView)findViewById(R.id.reportlistview);
+        depositSum =(TextView) findViewById(R.id.report_deposit_sum);
+        withdrawSum=(TextView) findViewById(R.id.report_withdraw_sum);
+        balanceSum =(TextView) findViewById(R.id.report_balance);
+        totalSum = (TextView) findViewById(R.id.report_total);
+        balanceIn=getIntent().getExtras().getString("balance");
 
 
         getLoaderManager().initLoader(EXISTING_TRANSACTION_LOADER,null,new Report.TransactionLoader());
@@ -155,7 +168,12 @@ public class Report extends AppCompatActivity {
                 reports.add(new ReportData(catesNames[i] , (sumtype[i]/sumWithDraw)*100));
             }
 
+             depositSum.setText(String.format("%.2f",sumDeposit));
+             withdrawSum.setText(String.format("%.2f",sumWithDraw ));
+             balanceSum.setText(String.format("%.2f",Double.parseDouble(balanceIn)));
+             totalSum.setText(String.format("%.2f",(sumDeposit+sumWithDraw+Double.parseDouble(balanceIn))));
 
+           //  balanceSum.setText(ba);
 
             setUpChart();
         }
@@ -193,6 +211,9 @@ public class Report extends AppCompatActivity {
 
         };
 
+
+
+
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(formatter);
         Description description = new Description();
@@ -206,7 +227,7 @@ public class Report extends AppCompatActivity {
 
 
         BarData data = new BarData(  set );
-
+        set.setColors(new int[] { R.color.fontred, R.color.fontred   }, getApplicationContext());
 
 
         data.setBarWidth(0.9f);
