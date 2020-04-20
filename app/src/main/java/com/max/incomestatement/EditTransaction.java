@@ -69,10 +69,11 @@ public class EditTransaction extends AppCompatActivity {
         String balancetemp = getIntent().getExtras().getString("balance");
         Log.d("first",balancetemp);
 
+
         balance=Double.parseDouble(balancetemp);
         mCurrentWalletUri= getIntent().getData();
 
-        Toast.makeText(this,""+mCurrentWalletUri,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,""+mCurrentWalletUri,Toast.LENGTH_SHORT).show();
         calenda.setOnDateChangeListener(new CalendarView.OnDateChangeListener()  {
 
             @Override
@@ -307,20 +308,13 @@ public class EditTransaction extends AppCompatActivity {
 
             }
         });
-
-
-
-
     }
-
-
 
     public void setupTime()
     {
         Date currentDate = new Date();
         SimpleDateFormat ss = new SimpleDateFormat("HH:mm");
         ss.format(currentDate);
-
         time.setText( ss.format(currentDate));
     }
 

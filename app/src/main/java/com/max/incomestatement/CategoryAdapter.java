@@ -28,7 +28,6 @@ public class CategoryAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         TextView tv = (TextView) view.findViewById(R.id.categorylistid);
         int nameCulumnIndex = cursor.getColumnIndex(WalletContract.WalletEntry.COLUMN_WALLET_NAME);
-
         String categoryName=cursor.getString(nameCulumnIndex);
         tv.setText(categoryName);
 

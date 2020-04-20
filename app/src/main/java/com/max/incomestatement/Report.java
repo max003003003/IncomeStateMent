@@ -31,6 +31,7 @@ import com.max.incomestatement.data.TransactionContract;
 import com.max.incomestatement.data.TransactionDbHelper;
 import com.max.incomestatement.data.WalletContract;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +42,9 @@ public class Report extends AppCompatActivity {
     private Context contex;
     private Double sumWithDraw=0.0;
     private Double sumDeposit=0.0;
-    private String[] catesNames= {"apartment","drink","education","fuel","healthcare","food","communication","transportation"};
-    private double[] sumtype = { 0.0, 0.0,0.0,0.0,0.0,0.0,0.0,0.0 };
-    private double[] payPercent = { 0.0, 0.0,0.0,0.0,0.0,0.0,0.0,0.0 };
+    private String[] catesNames= {"apartment","drink","education","fuel","healthcare","food","communication","transportation","outcome"};
+    private double[] sumtype = { 0.0, 0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 };
+    private double[] payPercent = { 0.0, 0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0 };
 
     private ArrayList<ReportData> reports = new ArrayList<ReportData>();
      private static final int EXISTING_TRANSACTION_LOADER=0;
@@ -69,13 +70,7 @@ public class Report extends AppCompatActivity {
         balanceSum =(TextView) findViewById(R.id.report_balance);
         totalSum = (TextView) findViewById(R.id.report_total);
         balanceIn=getIntent().getExtras().getString("balance");
-
-
         getLoaderManager().initLoader(EXISTING_TRANSACTION_LOADER,null,new Report.TransactionLoader());
-
-
-
-
     }
 
     class TransactionLoader implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -156,6 +151,10 @@ public class Report extends AppCompatActivity {
                     case "transportation":
                         sumtype[7]+=pay;
                         break;
+                    case "outcome":
+                        sumtype[8]+=pay;
+                        break;
+
                 }
 
 
@@ -165,13 +164,15 @@ public class Report extends AppCompatActivity {
             {
                 payPercent[i]=(sumtype[i]/sumWithDraw)*100;
 
-                reports.add(new ReportData(catesNames[i] , (sumtype[i]/sumWithDraw)*100));
+                reports.add( new ReportData( catesNames[i] , (sumtype[i]/sumWithDraw)*100));
             }
+            DecimalFormat df = new DecimalFormat("#,###.00");
 
-             depositSum.setText(String.format("%.2f",sumDeposit));
-             withdrawSum.setText(String.format("%.2f",sumWithDraw ));
-             balanceSum.setText(String.format("%.2f",Double.parseDouble(balanceIn)));
-             totalSum.setText(String.format("%.2f",(sumDeposit+sumWithDraw+Double.parseDouble(balanceIn))));
+
+            depositSum.setText(df.format( sumDeposit));
+             withdrawSum.setText(df.format(sumWithDraw ));
+             balanceSum.setText(df.format(Double.parseDouble(balanceIn)));
+             totalSum.setText(df.format((sumDeposit+sumWithDraw+Double.parseDouble(balanceIn))));
 
            //  balanceSum.setText(ba);
 
@@ -186,36 +187,30 @@ public class Report extends AppCompatActivity {
     public void setUpChart()
     {
 
-
-
-
-
-        ArrayList <String> labels = new ArrayList<String> ();
+        final ArrayList <String> labels = new ArrayList<String> ();
 
         BarChart chart = (BarChart) findViewById(R.id.chart);
         List<BarEntry> entries = new ArrayList<>();
+
         for(int i = 0; i < payPercent.length; i++) {
-            entries.add(new BarEntry( (float) i, (float) payPercent[i] ));
-            labels.add(catesNames[i]);
+
+            entries.add(new BarEntry( (float) i, (float) payPercent[i]  ));
+
         }
 
 
 
         IAxisValueFormatter formatter = new IAxisValueFormatter() {
-
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
+
                 return catesNames[(int) value];
             }
-
-
         };
-
-
-
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(formatter);
+
         Description description = new Description();
         description.setText("");
         chart.setDescription(description);
@@ -227,7 +222,7 @@ public class Report extends AppCompatActivity {
 
 
         BarData data = new BarData(  set );
-        set.setColors(new int[] { R.color.fontred, R.color.fontred   }, getApplicationContext());
+        set.setColors(new int[] { R.color.fontred ,}, getApplicationContext());
 
 
         data.setBarWidth(0.9f);

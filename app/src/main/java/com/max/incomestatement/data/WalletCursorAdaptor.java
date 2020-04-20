@@ -25,7 +25,6 @@ public class WalletCursorAdaptor extends CursorAdapter {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
             return LayoutInflater.from(context).inflate(R.layout.layout_row,parent, false);
-
         }
 
     @Override
@@ -39,7 +38,6 @@ public class WalletCursorAdaptor extends CursorAdapter {
         int balanceColumnIndex = cursor.getColumnIndex(WalletContract.WalletEntry.COLUMN_WALLET_BALANCE);
         int iconColumnIndex= cursor.getColumnIndex(WalletContract.WalletEntry.COLUMN_WALLET_ICON);
 
-
         String walletName=cursor.getString(nameCulumnIndex);
         Double walletBalance =cursor.getDouble(balanceColumnIndex);
         String WalletIcon = cursor.getString(iconColumnIndex);
@@ -47,7 +45,5 @@ public class WalletCursorAdaptor extends CursorAdapter {
         name.setText(wallet.getName());
         balace.setText(wallet.getBalace());
         icon.setImageResource(wallet.getIcon());
-
-
     }
 }

@@ -31,6 +31,7 @@
             android:label="Add A Wallet"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:windowSoftInputMode="adjustNothing"
             android:name=".EditTransaction"
             android:label="Transaction"
             android:parentActivityName=".MainActivity" />

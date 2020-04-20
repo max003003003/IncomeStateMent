@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/background"
-    tools:context="com.max.incomestatement.EditWalletActivity">
+    tools:context="com.max.incomestatement.ui.AddWalletActivity.EditWalletActivity">
 
     <TextView
         android:textColor="@color/font"
@@ -93,4 +93,16 @@
         android:layout_alignBottom="@+id/textView5"
         android:layout_alignLeft="@+id/nameIn"
         android:layout_alignStart="@+id/nameIn" />
+
+    <Button
+
+        android:id="@+id/savebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/delete_wallet"
+        android:layout_alignEnd="@+id/balanceIn"
+        android:layout_alignRight="@+id/balanceIn"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:text="Save" />
 </RelativeLayout>

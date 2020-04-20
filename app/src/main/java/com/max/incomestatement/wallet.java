@@ -27,9 +27,6 @@ public class Wallet {
 
     public String getBalace() {
         DecimalFormat df = new DecimalFormat("#,###.00");
-
-
-
         return df.format(this.balance)+" ฿";
     }
 
@@ -40,7 +37,7 @@ public class Wallet {
     public void setName(String name) {
         if(name!="" && name!=null){this.name=name;}
     }
-    public  void setBalance(double money){
+    public void setBalance(double money){
         this.balance=money;
     }
     public String getcerrentcy() {return this.currentcy; }

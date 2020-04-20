@@ -8,7 +8,7 @@ import java.util.HashMap;
  */
 
 public class CategoryNameManager {
-    private static  String[] Categoyname  = {"apartment","drink","education","fuel","healthcare","food","communication","transportation"};
+    private static  String[] Categoyname  = {"apartment","drink","education","fuel","healthcare","food","communication","transportation","outcome"};
     private static HashMap<String,Integer > icon = new HashMap<String,Integer>(){{
         put("apartment",Integer.valueOf(R.drawable.apartment));
         put("drink",Integer.valueOf(R.drawable.drink));
@@ -19,6 +19,7 @@ public class CategoryNameManager {
          put("communication",Integer.valueOf(R.drawable.phone));
          put("transportation",Integer.valueOf(R.drawable.transportation));
         put("income",Integer.valueOf(R.drawable.income));
+        put("outcome",Integer.valueOf(R.drawable.outcome));
     }};
 
 

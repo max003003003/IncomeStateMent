@@ -34,7 +34,6 @@ public class WalletActivity extends AppCompatActivity {
     private TransactionCursorAdapter transactionCursorAdapter;
     private ListView transactionListView;
     private long walletid;
-    private String categoryName;
     private static final int EXISTING_WALLET_LOADER =0;
     private static final int EXISTING_TRANSACTION_LOADER=1;
     @Override
@@ -57,7 +56,6 @@ public class WalletActivity extends AppCompatActivity {
         transactionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
-
                 Intent intent = new Intent(WalletActivity.this, EditTransaction.class);
                 TextView transid=(TextView) view.findViewById(R.id.transaction_row_transaction_id);
                 intent.setData(mCurrentWalletUri);
@@ -74,15 +72,8 @@ public class WalletActivity extends AppCompatActivity {
                 TransactionContract.TransactionEntry.COLUMN_TRANSACTION_WALLET_ID+" =  "+walletid ,
                 null,null);
 
-
-
-
         getLoaderManager().initLoader(EXISTING_WALLET_LOADER,null,new WalletLoader());
         getLoaderManager().initLoader(EXISTING_TRANSACTION_LOADER,null,new TransactionLoader());
-
-
-
-
     }
 
 
@@ -124,7 +115,6 @@ public class WalletActivity extends AppCompatActivity {
                 balanceString = wallet.getBalannceString();
                 balancetv.setText(wallet.getBalace());
                 iconimage.setImageResource(wallet.getIcon());
-
 
             }
 
@@ -200,7 +190,6 @@ public class WalletActivity extends AppCompatActivity {
     public void editWallet(View view)
     {
         Intent intent = new Intent(this,EditWalletActivity.class);
-
         intent.setData(this.mCurrentWalletUri);
         this.startActivity(intent);
     }

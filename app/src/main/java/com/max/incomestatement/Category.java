@@ -56,15 +56,6 @@ public class Category extends AppCompatActivity implements LoaderManager.LoaderC
         startActivity(intent);
     }
 
-    private void insertCat(){
-        ContentValues values = new ContentValues();
-        values.put(CategoryContract.CategoryEntry.COLUMN_CATEGORY_NAME, "Transportation");
-        values.put(CategoryContract.CategoryEntry.COLUMN_CATEGORY_ICON, "transpot");
-
-        Uri newUri = getContentResolver().insert(WalletContract.WalletEntry.CONTENT_URI, values);
-
-
-    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
