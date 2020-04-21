@@ -1,19 +1,16 @@
 package com.max.incomestatement;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Max on 3/3/2017.

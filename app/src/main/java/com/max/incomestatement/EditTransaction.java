@@ -1,14 +1,8 @@
 package com.max.incomestatement;
 
-import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.CursorLoader;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -21,15 +15,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.max.incomestatement.data.CategoryContract;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.max.incomestatement.data.TransactionContract;
 import com.max.incomestatement.data.WalletContract;
-import com.max.incomestatement.data.WalletCursorAdaptor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 

@@ -7,8 +7,10 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Created by Max on 2/23/2017.
@@ -33,7 +35,7 @@ public class CategoryProvider extends ContentProvider {
         return false;
     }
 
-    @Nullable
+    @NonNull
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         SQLiteDatabase database = categoryDbHelper.getReadableDatabase();

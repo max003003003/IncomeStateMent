@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/IncomeStatement.iml" filepath="$PROJECT_DIR$/IncomeStatement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/IncomeStateMent.iml" filepath="$PROJECT_DIR$/IncomeStateMent.iml" group="IncomeStateMent" />
+      <module fileurl="file://$PROJECT_DIR$/app/IncomeStateMent-master-app.iml" filepath="$PROJECT_DIR$/app/IncomeStateMent-master-app.iml" group="IncomeStateMent/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -2,7 +2,6 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -12,14 +11,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/background"
-    tools:context="com.max.incomestatement.ui.MainActivity.MainActivity"
    >
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <android.support.v7.widget.AppCompatImageView
+        <ImageView
             android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
@@ -74,7 +72,7 @@
 
                 />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
@@ -87,7 +85,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="11dp" />
 
-        <android.support.v7.widget.RecyclerView
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="108dp"
             android:layout_alignParentTop="true"

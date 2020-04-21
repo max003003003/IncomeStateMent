@@ -1,23 +1,14 @@
 package com.max.incomestatement;
 
 import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.max.incomestatement.data.CategoryContract;
-import com.max.incomestatement.data.WalletContract;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class EditCategory extends AppCompatActivity {
     private EditText categorynameinput;

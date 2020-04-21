@@ -2,8 +2,6 @@ package com.max.incomestatement;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +9,9 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.max.incomestatement.data.TransactionContract;
-import com.max.incomestatement.data.WalletContract;
+import androidx.core.content.ContextCompat;
 
-import org.w3c.dom.Text;
+import com.max.incomestatement.data.TransactionContract;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
